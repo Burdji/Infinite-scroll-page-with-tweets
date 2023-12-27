@@ -1,0 +1,151 @@
+
+div {
+    /* box-sizing: border-box; */
+}
+.tweet {
+    margin: auto;
+    background-color: rgb(255, 255, 255);
+    padding: 0rem 0rem 0.1rem 0.6rem;
+    white-space: nowrap;
+    width: 50rem;
+    border: 2px solid #d5d5d5;
+    /* position: relative; */
+}
+.tweet_column {
+    vertical-align: top;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+
+}
+.avatar {
+    
+    
+}
+.main {
+    width: 45.2rem;
+    font-family: Helvetica;
+    white-space: normal;
+}
+.pic {
+    margin: 0.8rem 0.5rem 0rem 0.35rem; 
+    object-fit: cover;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    width: 60px;
+
+}
+.top {
+    display:inline-flex;
+    
+
+}
+.mid {
+}
+.bot {
+    display: inline-flex;
+
+}
+.topleft {
+    width: 42rem;
+    display: inline-flex;
+}
+.header {
+   margin-top: 1.1rem;
+   font-size: larger;
+   font-weight: 700;
+}
+.badge {
+
+}
+.checkmark {
+    margin-top: 1.1rem;
+    width: 20px;
+    height: 20px;
+    padding-left: 0.2rem;
+    padding-top: 0.1rem;
+}
+.username {
+    margin-top: 1.1rem;
+    color: rgb(71, 96, 104);
+    padding-top: 0.21rem;
+    margin-left: 0.28rem;
+
+}
+.dot {
+    margin-top: 0.8rem;
+    padding: 0 3px 0 2px;
+}
+.time {
+}
+.options {
+
+}
+.dots {
+    opacity: 70%;
+    width: 24px;
+    padding: 6.8px;
+    margin-top: 0.3rem;
+
+}
+.lorem {
+    margin: 0;
+    
+}
+.icons {
+    width:4rem;
+    opacity: 70%;
+    font-weight: 100;
+    font-size: 16px;
+    display: flex;
+    margin-right: 7rem;
+}
+.count {
+    margin-top: 1.1rem;
+}
+.reply_count{
+    margin-left: 0;
+}
+.reply {
+    margin-top: 0.4rem;
+    margin-left 0;
+    padding: 1.3px calc(1.3px + 4px) 1.3px calc(1.3px + 4px);
+    width: 27px;
+    height: 35px;
+}
+.retweet {
+    padding: 0.3rem;
+    margin-top: 0.3rem;
+    width: 28px;
+    height: 28px;
+}
+.like {
+   padding: calc(0.3rem + 1px) 0.3rem 0.3rem 0.3rem ;
+   margin-top: 0.3rem;
+   width: 28px;
+   height: 27px;
+}
+.views {
+    margin-top: 0.3rem;
+    padding: calc(0.3rem + 1px) 0.3rem calc(0.3rem + 1px) 0.3rem ;
+    width: 28px;
+    height: 26px;
+}
+:hover.tweet {
+    background-color: #f3f6f7
+}
+:hover.icon {
+    background-color: #c8edff;
+    border-radius: 50%;
+}
+:hover.header {
+    text-decoration: underline;
+}
+:hover.pic {
+    filter: brightness(90%);
+}
+:hover.dots {
+    border-radius: 50%;
+    background-color: #c8edff;
+}
+
