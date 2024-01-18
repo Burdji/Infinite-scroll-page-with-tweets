@@ -1,43 +1,13 @@
 
 
 let body= document.querySelector("body");
-// let tweet= document.createElement('div');
-// document.body.appendChild(tweet);
+const loading= document.createElement('div');
+    loading.className="loadingEl";
+    loading.innerHTML=`
+    <img class="loadGif" src="LoaderGif.gif">`;
 let text = document.querySelectorAll('.lorem');
 let mid= document.querySelector(".mid");
-// let pole= document.getElementById("pole");
-// let get= document.getElementById("get");
-// let post= document.getElementById("post");
-// get.addEventListener('click', getInfo);
-// post.addEventListener('click', postInfo);
-// async function getInfo(x){
-//     x.preventDefault();
-//     let res= await fetch('http://localhost:8080',{
-//         method: 'GET'
-//     });
-//     console.log(res);
-// }
-// async function postInfo(x){
-//     x.preventDefault();
-//     if (input.value=='') {return};
-//     console.log(parcel);
-//     let res= await fetch('http://localhost:8080',{
-//         method: 'POST',
-//         headers: {
-//             "Content-Type": 'application.json'
-//         },
-//         body: JSON.stringify({
-//             parcel: input.value
-//         })
-//     });
-//     console.log(res);
-// }
-//let tweet = document.querySelector(".tweet");
-//text.innerHTML=randomLorem();
-// text.addEventListener("click", function() {
-//    text.innerHTML =randomLorem();
-// });
-populatePage(10);
+load(8);
 function createTweet(name, handle, timeStamp, text){
    const template=`<div class="tweet">
    <div class="tweet_column avatar">
@@ -94,32 +64,21 @@ function randomLorem(){
 function populatePage(num){
    let stamp=0;
    for(let i=0;i<num;i++){
-      body.innerHTML+=createTweet('hui','pedal',stamp,randomLorem());
+      body.innerHTML+=createTweet('name','username',stamp,randomLorem());
       stamp++;
    }
 }
-
-// fetch("http://localhost:3000")
-//    .then(res=>res.json())
-//    .then(json => console.log(json));
-
-// console.log(result);
-REQUEST_DELAY = 2000
-const RESPONSE_DELAY = 5000
-const delayResponse = (req, res, next) => {
-  if (THROTTLE_PATHS(req.url)) {
-    // Delay request by 2 seconds
-    setTimeout(next, REQUEST_DELAY)
-
-    // Delay response completion by 5 seconds
-    const endOriginal = res.end
-    res.end = (...args) => {
-      setTimeout(() => {
-        endOriginal.apply(res, args)
-      }, RESPONSE_DELAY)
-    }
-  } else {
-    next()
-  }
+function load(count){
+    body.appendChild(loading);
+    setTimeout(()=>{
+        loading.remove();
+        populatePage(count);
+    },'2000');
 }
-
+window.addEventListener('scroll',()=>{
+    let docHeight=document.documentElement.scrollHeight-window.innerHeight;
+    let scrolled=window.scrollY;
+    if (scrolled==docHeight){
+        load(3);
+    }
+})

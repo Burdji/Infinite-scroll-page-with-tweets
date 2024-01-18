@@ -148,4 +148,12 @@ div {
     border-radius: 50%;
     background-color: #c8edff;
 }
-
+.loadingEl{
+    margin: auto;
+    height: 175px;
+    width:  175px;
+    overflow: hidden;
+}
+.loadGif{
+    margin:-122.5% 0% 0% -207%;
+}
