@@ -1,9 +1,7 @@
-
-
 let body= document.querySelector("body");
 const loading= document.createElement('div');
-    loading.className="loadingEl";
-    loading.innerHTML=`
+loading.className="loadingEl";
+loading.innerHTML=`
     <img class="loadGif" src="LoaderGif.gif">`;
 let text = document.querySelectorAll('.lorem');
 let mid= document.querySelector(".mid");
@@ -64,7 +62,7 @@ function randomLorem(){
 function populatePage(num){
    let stamp=0;
    for(let i=0;i<num;i++){
-      body.innerHTML+=createTweet('name','username',stamp,randomLorem());
+      body.innerHTML+=createTweet(router,'username',stamp,randomLorem());
       stamp++;
    }
 }
