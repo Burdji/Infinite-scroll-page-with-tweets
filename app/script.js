@@ -5,6 +5,7 @@ loading.innerHTML=`
     <img class="loadGif" src="LoaderGif.gif">`;
 let text = document.querySelectorAll('.lorem');
 let mid= document.querySelector(".mid");
+const url= 'http://localhost:8080/home';
 load(8);
 function createTweet(name, handle, timeStamp, text){
    const template=`<div class="tweet">
@@ -18,7 +19,7 @@ function createTweet(name, handle, timeStamp, text){
                <div class="badge">
                    <img class="checkmark" src="pngwing.com.png" alt="">
                </div>
-               <div class="username">@${handle}<span class="dot">·</span><span class="time">${timeStamp}h</span></div>
+               <div class="username" id="usName">@${handle}<span class="dot">·</span><span class="time">${timeStamp}h</span></div>
            </div>
            <div class="options">
                <img class="dots" src="https://cdn3.iconfinder.com/data/icons/feather-5/24/more-horizontal-512.png" alt="">
@@ -60,11 +61,18 @@ function randomLorem(){
    return result;
 }
 function populatePage(num){
-   let stamp=0;
-   for(let i=0;i<num;i++){
-      body.innerHTML+=createTweet(router,'username',stamp,randomLorem());
-      stamp++;
-   }
+    fetch(url,{ method: "GET" })
+      .then(response => response.json())
+      .then(data => {
+        let stamp=0;
+        for(let i=0;i<num;i++){
+            let id = random(0,19)
+            let title = data.profile[id].displayName;
+            let usrName = data.profile[id].userName;
+            body.innerHTML+=createTweet(title,usrName,stamp,randomLorem());
+            stamp++;
+        }
+      });
 }
 function load(count){
     body.appendChild(loading);
@@ -73,10 +81,15 @@ function load(count){
         populatePage(count);
     },'2000');
 }
-window.addEventListener('scroll',()=>{
+window.addEventListener('scroll',function(){
     let docHeight=document.documentElement.scrollHeight-window.innerHeight;
     let scrolled=window.scrollY;
     if (scrolled==docHeight){
         load(3);
     }
-})
+});
+function random(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random()*(max-min+1))+min;
+  }

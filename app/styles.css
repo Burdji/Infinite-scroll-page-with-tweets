@@ -1,7 +1,7 @@
 
-div {
-    /* box-sizing: border-box; */
-}
+/* div {
+    box-sizing: border-box;
+} */
 .tweet {
     margin: auto;
     background-color: rgb(255, 255, 255);
@@ -18,10 +18,8 @@ div {
     display: inline-block;
 
 }
-.avatar {
-    
-    
-}
+/* .avatar {
+} */
 .main {
     width: 45.2rem;
     font-family: Helvetica;
@@ -40,8 +38,8 @@ div {
     
 
 }
-.mid {
-}
+/* .mid {
+} */
 .bot {
     display: inline-flex;
 
@@ -55,9 +53,8 @@ div {
    font-size: larger;
    font-weight: 700;
 }
-.badge {
-
-}
+/* .badge {
+} */
 .checkmark {
     margin-top: 1.1rem;
     width: 20px;
@@ -76,11 +73,9 @@ div {
     margin-top: 0.8rem;
     padding: 0 3px 0 2px;
 }
-.time {
-}
-.options {
-
-}
+/* .time {
+} */
+/* .options {} */
 .dots {
     opacity: 70%;
     width: 24px;
@@ -108,7 +103,7 @@ div {
 }
 .reply {
     margin-top: 0.4rem;
-    margin-left 0;
+    margin-left: 0;
     padding: 1.3px calc(1.3px + 4px) 1.3px calc(1.3px + 4px);
     width: 27px;
     height: 35px;
