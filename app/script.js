@@ -6,49 +6,101 @@ loading.innerHTML=`
 let text = document.querySelectorAll('.lorem');
 let mid= document.querySelector(".mid");
 const url= 'http://localhost:8080/home';
+let stamp=0;
 load(8);
-function createTweet(name, handle, timeStamp, text){
-   const template=`<div class="tweet">
-   <div class="tweet_column avatar">
-       <img class="pic" src="https://media.tenor.com/Mv3Nh1d4TsoAAAAC/steve-harvey-meatcanyon.gif">  
-   </div>  
-   <div class="tweet_column main">
-       <div class="top">
-           <div class="topleft">
-               <div class="header">${name}</div>
-               <div class="badge">
-                   <img class="checkmark" src="pngwing.com.png" alt="">
-               </div>
-               <div class="username" id="usName">@${handle}<span class="dot">·</span><span class="time">${timeStamp}h</span></div>
-           </div>
-           <div class="options">
-               <img class="dots" src="https://cdn3.iconfinder.com/data/icons/feather-5/24/more-horizontal-512.png" alt="">
-           </div>
-       </div>
-       <div class="mid">
+function createTweet(img, name, handle, timeStamp, text){
+    const tweet=document.createElement(`div`);
+    tweet.classList.add('tweet');
+    tweet.innerHTML=`
+    <div class="tweet_column avatar">
+        <img class="pic" src="http://localhost:8080/media/${img}">  
+    </div>  
+    <div class="tweet_column main">
+        <div class="top">
+            <div class="topleft">
+                <div class="header">${name}</div>
+                <div class="badge">
+                   <img class="checkmark" src="http://localhost:8080/icons/verified.png" alt="">
+                </div>
+                <div class="username" id="usName">@${handle}<span class="dot">·</span><span class="time">${timeStamp}h</span></div>
+            </div>
+            <div class="options">
+               <img class="dots" src="http://localhost:8080/icons/more.png" alt=""
+               title="more">
+            </div>
+        </div>
+        <div class="mid">
            <div class="lorem" id="lorem">${text}</div>
-       </div>
-       <div class="bot">
-           <div class="icons">
-               <img class="icon reply" src="https://cdn3.iconfinder.com/data/icons/twitter-25/512/158_Twitter_Chat_Chatting-512.png" alt="">
-               <div class="count reply_count">100</div>
-           </div>
-           <div class="icons">
-               <img class="icon retweet" src="https://cdn1.iconfinder.com/data/icons/systemui-vol-2/21/retweet-256.png" alt="">
-               <div class="count">300</div>
-           </div>
-           <div class="icons">
-               <img class="icon like" src="https://cdn3.iconfinder.com/data/icons/twitter-25/512/166_Heart_Love_Like_Twitter-256.png" alt="">
-               <div class="count">100</div>
-           </div>
-           <div class="icons">
-               <img class="icon views" src="https://cdn3.iconfinder.com/data/icons/feather-5/24/bar-chart-2-256.png" alt="">
-               <div class="count">100</div>
-           </div>
-       </div>
-   </div>
-</div>`
-   return template;
+        </div>
+        <div class="bot">
+            <div class="icons">
+               <img class="icon reply" src="http://localhost:8080/icons/reply.png" alt=""
+               title="replies">
+               <div class="replies count">100</div>
+            </div>
+            <div class="icons">
+               <img class="icon retweet" src="http://localhost:8080/icons/retweet.png" alt=""
+               title="retweets">
+               <div class="retweets count">300</div>
+            </div>
+            <div class="icons">
+               <img class="icon like" src="http://localhost:8080/icons/heart.png" alt=""
+               title="likes">
+               <div class="likes count"></div>
+            </div>
+            <div class="icons">
+                <img class="icon views" src="http://localhost:8080/icons/views.png" alt=""
+                title="views">
+                <div class="view count">100</div>
+            </div>
+        </div>
+    </div>`;
+    const heart = tweet.querySelector('.like');
+    const likes = tweet.querySelector('.likes');
+    likes.textContent = random(101,999);
+    let altLikes = Number(likes.textContent);
+    let isLiked = false;
+
+    heart.addEventListener('click', () => {
+        isLiked = !isLiked;
+        if (isLiked) {
+            heart.src = 'http://localhost:8080/icons/heart2.png';
+        } else {
+            heart.src = 'http://localhost:8080/icons/heart.png';
+        }
+        likes.textContent = altLikes===Number(likes.textContent) ? altLikes+1 : altLikes; 
+    });
+    const reply = tweet.querySelector('.reply');
+    const replies = tweet.querySelector('.replies');
+    replies.textContent = random(101,999);
+    let altReplies = Number(replies.textContent);
+    let isReplied = false;
+
+    reply.addEventListener('click', () => {
+        isReplied = !isReplied;
+        if (isReplied) {
+            reply.src = 'http://localhost:8080/icons/reply2.png';
+        } else {
+            reply.src = 'http://localhost:8080/icons/reply.png';
+        }
+        replies.textContent = altReplies===Number(replies.textContent) ? altReplies+1 : altReplies; 
+    });
+    const retweet = tweet.querySelector('.retweet');
+    const retweets = tweet.querySelector('.retweets');
+    retweets.textContent = random(101,999);
+    let altRetweets = Number(retweets.textContent);
+    let isRetweet = false;
+
+    retweet.addEventListener('click', () => {
+        isRetweet = !isRetweet;
+        retweet.classList.toggle('rotate');
+        retweets.textContent = altRetweets===Number(retweets.textContent) ? altRetweets+1 : altRetweets; 
+    });
+
+    const views = tweet.querySelector('.view');
+    views.textContent=random(1,99)+'K';
+
+    body.appendChild(tweet);
 }
 function randomLorem(){
    let lorem= "Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur numquam ratione molestiae laudantium sed, minima, laborum vitae eveniet sapiente maxime, esse velit porro praesentium nam magnam delectus? Exercitationem, praesentium illo.".split(' ');
@@ -64,15 +116,15 @@ function populatePage(num){
     fetch(url,{ method: "GET" })
       .then(response => response.json())
       .then(data => {
-        let stamp=0;
         for(let i=0;i<num;i++){
-            let id = random(0,19)
+            let id = random(0,19);
             let title = data.profile[id].displayName;
             let usrName = data.profile[id].userName;
-            body.innerHTML+=createTweet(title,usrName,stamp,randomLorem());
+            let img = data.profile[id].img;
+            createTweet(img,title,usrName,stamp,randomLorem());
             stamp++;
         }
-      });
+    });
 }
 function load(count){
     body.appendChild(loading);

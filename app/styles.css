@@ -98,7 +98,7 @@
 .count {
     margin-top: 1.1rem;
 }
-.reply_count{
+.replies{
     margin-left: 0;
 }
 .reply {
@@ -113,6 +113,10 @@
     margin-top: 0.3rem;
     width: 28px;
     height: 28px;
+    transition: transform 0.3s ease
+}
+.retweet.rotate {
+    transform: rotate(180deg);
 }
 .like {
    padding: calc(0.3rem + 1px) 0.3rem 0.3rem 0.3rem ;

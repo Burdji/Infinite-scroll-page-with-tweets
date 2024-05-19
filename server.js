@@ -6,6 +6,9 @@ app.use(express.json());
 let jsonData = fs.readFileSync('./database/database.json', 'utf8');
 jsonData = JSON.parse(jsonData);
 app.use(express.static('app'));
+app.use("/media",express.static('./database/media'));
+app.use("/icons",express.static('./database/icons'));
+console.log(jsonData.profile[0].img)
 
 app.use('/database',rout);
 
