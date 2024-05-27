@@ -15,14 +15,6 @@ for(let i=0;i<jsonData.profile.length;i++){
 router.get('/', (req, res)=> {
     res.send(`<h4>${rawData.join('<br/>')}<h4/>`);
 });
-// router.post('/', (req, res)=> {
-//     res.send('sended');
-// });
-// router.put('/', (req, res)=> {
-//     res.send('sended');
-// });
-// router.delete('/', (req, res)=> {
-//     res.send( 'sended');
-// });
+
 module.exports = router;
 

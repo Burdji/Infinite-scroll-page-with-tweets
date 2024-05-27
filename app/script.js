@@ -1,4 +1,4 @@
-let body= document.querySelector("body");
+let tweets= document.querySelector(".tweets");
 const loading= document.createElement('div');
 loading.className="loadingEl";
 loading.innerHTML=`
@@ -6,14 +6,109 @@ loading.innerHTML=`
 let text = document.querySelectorAll('.lorem');
 let mid= document.querySelector(".mid");
 const url= 'http://localhost:8080/home';
-let stamp=0;
+let stamp=1;
 load(8);
-function createTweet(img, name, handle, timeStamp, text){
+const modal = document.getElementById('modal');
+const btn = document.getElementById('btn');
+const span = document.getElementsByClassName('close')[0];
+const logged = document.getElementsByClassName('logged')[0];
+const userPic = document.getElementsByClassName('userPic')[0];
+const user = document.getElementsByClassName('user')[0];
+const crtPost = document.getElementById('crtPost');
+
+btn.onclick = function() {
+  modal.style.display = 'block';
+}
+
+span.onclick = function() {
+  modal.style.display = 'none';
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
+}
+
+const makePost= document.getElementById('makePost')
+const closePost= document.getElementById('closePost')
+crtPost.onclick = function(){
+    makePost.style.display = 'block';
+}
+closePost.onclick = function(){
+    makePost.style.display = 'none';
+}
+
+const form = document.getElementById('registerForm');
+form.addEventListener('submit', async (event) => {
+   event.preventDefault();
+   const formData = new FormData(event.target);
+    try {
+        const response = await fetch('/api/register', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+            console.log('Registration successful');
+            form.reset();
+            modal.style.display = 'none';
+        } else {
+            console.error('Registration failed');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+    logged.style.filter = 'opacity(100%)';
+    const pic = formData.get('image');
+    const reader = new FileReader();
+    reader.addEventListener('load', function() {
+      userPic.src = reader.result;
+      user.textContent = formData.get('displayName');
+      btn.style.filter = 'opacity(0%)';
+      crtPost.style.display = 'block'
+    });
+    reader.readAsDataURL(pic);
+});
+const tweetForm = document.getElementById('tweetForm');
+const meme = document.getElementById('meme');
+const postText = document.getElementById('postText');
+tweetForm.addEventListener('submit', async(event) => {
+    makePost.style.display = 'none';
+    event.preventDefault();
+    const postData = new FormData(event.target);
+    const pic = postData.get('meme');
+    const content = postData.get('postText');
+    const tweetPic = document.getElementById('tweetPic');
+    fetch(url,{ method: "GET" })
+      .then(response => response.json())
+      .then(data => {
+        let id = data.profile.length-1;
+        let title = data.profile[id].displayName;
+        let usrName = data.profile[id].userName;
+        createTweet(userPic.src,title,usrName, 0, content,1);
+        const tweetPic = document.getElementById('tweetPic');
+        const reader = new FileReader();
+        reader.addEventListener('load', function() {
+        tweetPic.src = reader.result;
+        });
+        reader.readAsDataURL(pic);
+        tweetPic.style.display = 'block';
+    });
+    document.documentElement.scrollTop = 0;
+    tweetForm.reset();
+});
+
+
+
+function createTweet(img, name, handle, timeStamp, text, order){
     const tweet=document.createElement(`div`);
     tweet.classList.add('tweet');
+    let meme = '';
+    if(order)meme='<img id="tweetPic" src="">';
     tweet.innerHTML=`
     <div class="tweet_column avatar">
-        <img class="pic" src="http://localhost:8080/media/${img}">  
+        <img class="pic" src="${img}">  
     </div>  
     <div class="tweet_column main">
         <div class="top">
@@ -30,6 +125,7 @@ function createTweet(img, name, handle, timeStamp, text){
             </div>
         </div>
         <div class="mid">
+           ${meme}
            <div class="lorem" id="lorem">${text}</div>
         </div>
         <div class="bot">
@@ -99,8 +195,9 @@ function createTweet(img, name, handle, timeStamp, text){
 
     const views = tweet.querySelector('.view');
     views.textContent=random(1,99)+'K';
-
-    body.appendChild(tweet);
+    
+    tweets.appendChild(tweet);
+    if(order)tweet.style.order = timeStamp-1;
 }
 function randomLorem(){
    let lorem= "Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur numquam ratione molestiae laudantium sed, minima, laborum vitae eveniet sapiente maxime, esse velit porro praesentium nam magnam delectus? Exercitationem, praesentium illo.".split(' ');
@@ -120,14 +217,14 @@ function populatePage(num){
             let id = random(0,19);
             let title = data.profile[id].displayName;
             let usrName = data.profile[id].userName;
-            let img = data.profile[id].img;
-            createTweet(img,title,usrName,stamp,randomLorem());
+            let img = `http://localhost:8080/media/${data.profile[id].img}`;
+            createTweet(img,title,usrName,stamp,randomLorem(),0);
             stamp++;
         }
     });
 }
 function load(count){
-    body.appendChild(loading);
+    tweets.appendChild(loading);
     setTimeout(()=>{
         loading.remove();
         populatePage(count);

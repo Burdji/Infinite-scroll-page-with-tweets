@@ -7,13 +7,44 @@
     <title>Document</title>
 </head>
 <body>
-    
-    <!-- <form>
-        <input id="pole" type="text">
-        <button id="get">GET</button>
-        <button id="post">POST</button>
+  <button id="btn">Register</button>
+  <div class="logged">
+      <img class="userPic" src="http://localhost:8080/media/crabs.jpg" alt="avatar">
+      <h4 class="user">Jerry</h4>
+  </div>
+  <button id="crtPost">Create Post</button>
+  <div id="modal" class="modal">
+      <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Register</h2>
+            <form id="registerForm">
+                <label for="image">Image:</label>
+                <input type="file" id="image" name="image" accept="image/gif, image/png, image/jpeg" required>
 
-    </form> -->
+                <label for="username">Username:</label>
+                <input type="text" id="userName" name="userName" required>
+
+                <label for="displayName">Display Name:</label>
+                <input type="text" id="displayName" name="displayName" required>
+
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+<div id="makePost">
+  <span id="closePost">&times;</span>
+  <h2 id="postSmthing">Post Something</h2>
+  <form id="tweetForm">
+      <textarea id="postText" name="postText" placeholder="What's on your mind?" required></textarea>
+      
+      <label id="labelImage" for="meme">Image</label>
+      <input type="file" id="meme" name="meme" accept="image/gif, image/png, image/jpeg" style="display: none">
+
+      <button id="postBtn" type="submit">Post</button>
+  </form>
+
+</div>
+<div class="tweets"></div>
     <script src="script.js"></script>
 </body>
 </html>
