@@ -73,16 +73,16 @@ form.addEventListener('submit', async (event) => {
 const tweetForm = document.getElementById('tweetForm');
 const meme = document.getElementById('meme');
 const postText = document.getElementById('postText');
-tweetForm.addEventListener('submit', async(event) => {
+tweetForm.addEventListener('submit', function(event){
     makePost.style.display = 'none';
     event.preventDefault();
     const postData = new FormData(event.target);
     const pic = postData.get('meme');
     const content = postData.get('postText');
-    const tweetPic = document.getElementById('tweetPic');
     fetch(url,{ method: "GET" })
       .then(response => response.json())
       .then(data => {
+        console.log(data.profile)
         let id = data.profile.length-1;
         let title = data.profile[id].displayName;
         let usrName = data.profile[id].userName;
@@ -98,7 +98,6 @@ tweetForm.addEventListener('submit', async(event) => {
     document.documentElement.scrollTop = 0;
     tweetForm.reset();
 });
-
 
 
 function createTweet(img, name, handle, timeStamp, text, order){
