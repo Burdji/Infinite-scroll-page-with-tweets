@@ -93,9 +93,9 @@ tweetForm.addEventListener('submit', function(event){
             createTweet(userPic.src,title,usrName, 0, content,1,meme);
             const tweetPic = document.getElementById('tweetPic');
             tweetPic.src = reader.result;
+            tweetPic.style.display = 'block';
         });
         reader.readAsDataURL(pic);
-        tweetPic.style.display = 'block';
     });
     document.documentElement.scrollTop = 0;
     tweetForm.reset();
