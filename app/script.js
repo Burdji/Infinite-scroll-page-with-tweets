@@ -86,11 +86,13 @@ tweetForm.addEventListener('submit', function(event){
         let id = data.profile.length-1;
         let title = data.profile[id].displayName;
         let usrName = data.profile[id].userName;
-        createTweet(userPic.src,title,usrName, 0, content,1);
-        const tweetPic = document.getElementById('tweetPic');
+        let meme='';
         const reader = new FileReader();
         reader.addEventListener('load', function() {
-        tweetPic.src = reader.result;
+            if(reader.result)meme='<img id="tweetPic" src="">'
+            createTweet(userPic.src,title,usrName, 0, content,1,meme);
+            const tweetPic = document.getElementById('tweetPic');
+            tweetPic.src = reader.result;
         });
         reader.readAsDataURL(pic);
         tweetPic.style.display = 'block';
@@ -100,11 +102,9 @@ tweetForm.addEventListener('submit', function(event){
 });
 
 
-function createTweet(img, name, handle, timeStamp, text, order){
+function createTweet(img, name, handle, timeStamp, text, order,meme){
     const tweet=document.createElement(`div`);
     tweet.classList.add('tweet');
-    let meme = '';
-    if(order)meme='<img id="tweetPic" src="">';
     tweet.innerHTML=`
     <div class="tweet_column avatar">
         <img class="pic" src="${img}">  
@@ -217,7 +217,7 @@ function populatePage(num){
             let title = data.profile[id].displayName;
             let usrName = data.profile[id].userName;
             let img = `http://localhost:8080/media/${data.profile[id].img}`;
-            createTweet(img,title,usrName,stamp,randomLorem(),0);
+            createTweet(img,title,usrName,stamp,randomLorem(),0,'');
             stamp++;
         }
     });
